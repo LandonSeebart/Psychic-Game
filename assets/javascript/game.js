@@ -1,18 +1,22 @@
 
-    // const playerInput = prompt();
 
 const computerPlayer = {
     computerChoices: ['a','b','c','d','e','f','g','h','i','j','k','l',
-    'm','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    'm','n','o','p','q','r','s','t','u','v','w','x','y','z'],
+    computerChoiceSelecter: function(arg1) {
+        return (arg1[Math.floor(Math.random() * arg1.length)]);
+    }
 };
 
-//     const random_letter = function() {
-//         var chars = "0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ";
-//         return chars.substr( Math.floor(Math.random() * 62), 1);
-//     }
+let computerSelection = computerPlayer.computerChoiceSelecter(computerPlayer.computerChoices)
 
+const humanPlayer = {
+    guess: "a",
+    playerGuesses: [ ],
+    recordPlayerInput: function(arg1) {
+       humanPlayer.playerGuesses.push(arg1);
+    }
+};
 
-// const computerChoices = ['a','b','c','d','e','f','g','h','i','j','k','l',
-// 'm','n','o','p','q','r','s','t','u','v','w','x','y','z']
+console.log(humanPlayer.playerGuesses);
 
-console.log(computerPlayer.computerChoices);
