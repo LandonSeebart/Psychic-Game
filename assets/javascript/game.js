@@ -4,7 +4,7 @@
 
 const alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 const randomLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
-let guessCount = 1;
+let guessCount = 8;
 
 //Links to html ids
 const guesses = document.querySelector('.guesses');
@@ -19,19 +19,19 @@ const guessField = document.querySelector('.guessField');
 
 function checkGuess() {
   let userGuess = (guessField.value);
-  if (guessCount === 1) {
+  if (guessCount === 8) {
     guesses.textContent = 'Previous guesses: ';
     guessesLeft.textContent = 'Guesses left: ';
   }
 
   guesses.textContent += userGuess + ' ';
-  guessesLeft.textContent += guessCount + ' ';
+  guessesLeft.textContent += guessCount;
  
   if (userGuess === randomLetter) {
     lastResult.textContent = 'You Win!';
     setGameOver();
 
-  } else if (guessCount === 10) {
+  } else if (guessCount === 0) {
     lastResult.textContent = '!!!GAME OVER!!!';
 
     setGameOver();
@@ -39,7 +39,7 @@ function checkGuess() {
     lastResult.textContent = 'Wrong!';
   }
  
-  guessCount++;
+  guessCount--;
   guessField.value = '';
   guessField.focus();
 }
