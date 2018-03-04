@@ -4,45 +4,47 @@
 
 const alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 const randomLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
-let guessCount = 8;
+let guessCount = 2;
+var resetButton;
 
 //Links to html ids
-const guesses = document.querySelector('.guesses');
-const guessesLeft = document.querySelector('.guessesLeft');
-const scoreWins = document.querySelector('.wins');
-const scoreLosses = document.querySelector('losses');
-const lastResult = document.querySelector('.lastResult');
-const guessSubmit = document.querySelector('.guessSubmit');
-const guessField = document.querySelector('.guessField');
+const guessList = document.querySelector('.guess-list');
+const guessCounter = document.querySelector('.guess-count');
+const guessesLeft = document.querySelector('#guesses-left');
+const winCount = document.querySelector('.win-count');
+const lossCount = document.querySelector('loss-count');
+const lastResult = document.querySelector('.last-result');
+const guessSubmit = document.querySelector('.guess-submit');
+const guessField = document.querySelector('.guess-field');
 
 //checks to see if user guess matches random leter
 
 function checkGuess() {
   let userGuess = (guessField.value);
-  if (guessCount === 8) {
-    guesses.textContent = 'Previous guesses: ';
-    guessesLeft.textContent = 'Guesses left: ';
+
+  if (guessCount === 2) {
+    guessList.textContent = 'Previous guesses: ';
   }
 
-  guesses.textContent += userGuess + ' ';
-  guessesLeft.textContent += guessCount;
- 
   if (userGuess === randomLetter) {
     lastResult.textContent = 'You Win!';
     setGameOver();
 
-  } else if (guessCount === 0) {
+  } else if (guessCount === 1) {
     lastResult.textContent = '!!!GAME OVER!!!';
-
     setGameOver();
+
   } else {
-    lastResult.textContent = 'Wrong!';
+    lastResult.textContent = 'Nope!';
   }
- 
+
   guessCount--;
+  guessCounter.textContent = 'Guesses left: ' + guessCount;
+  guessList.textContent += userGuess + ' ';
   guessField.value = '';
   guessField.focus();
 }
+
 
 //Evaluate match when user clicks
 guessSubmit.addEventListener('click', checkGuess);
@@ -61,10 +63,9 @@ function setGameOver() {
 function resetGame() {
   guessCount = 1;
 
-  var resetParas = document.querySelectorAll('.resultParas p');
-  for (var i = 0 ; i < resetParas.length ; i++) {
-    resetParas[i].textContent = '';
-  }
+  guessList.textContent = '';
+  guessCounter.textContent = '';
+  lastResult.textContent = '';
 
   resetButton.parentNode.removeChild(resetButton);
 
@@ -73,5 +74,5 @@ function resetGame() {
   guessField.value = '';
   guessField.focus();
 
-  randomLetter = alphabet(Math.floor(Math.random() * alphabet.length));
+  randomLetter = alphabet[(Math.floor(Math.random() * alphabet.length))];
 }
